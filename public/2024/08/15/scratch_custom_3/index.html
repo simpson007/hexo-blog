@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>通过文生图模型在 Scratch 3 背景区生成图片 | 于沈健の博客</title><meta name="keywords" content="创界编途·Scratch新章"><meta name="author" content="于沈健"><meta name="copyright" content="于沈健"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="经过在角色区和造型区成功生成图片的历程之后，最后的任务就是在背景区通过文生图模型生成图片了。这次任务相对来说也是最简单的一步，因为它和之前的逻辑非常相似，只是在 Scratch 3 的背景区操作图片。 遇到的问题在实现背景区生成图片时，我已经有了之前的角色和造型区开发的经验，因此这次遇到的挑战并不多。主要需要注意的是，背景的处理和造型类似，但需要确保它被设置为舞台的当前背景。 解决方法这里同样使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过文生图模型在 Scratch 3 背景区生成图片">
+<meta property="og:url" content="http://yushenjian.com/2024/08/15/scratch_custom_3/index.html">
+<meta property="og:site_name" content="于沈健の博客">
+<meta property="og:description" content="经过在角色区和造型区成功生成图片的历程之后，最后的任务就是在背景区通过文生图模型生成图片了。这次任务相对来说也是最简单的一步，因为它和之前的逻辑非常相似，只是在 Scratch 3 的背景区操作图片。 遇到的问题在实现背景区生成图片时，我已经有了之前的角色和造型区开发的经验，因此这次遇到的挑战并不多。主要需要注意的是，背景的处理和造型类似，但需要确保它被设置为舞台的当前背景。 解决方法这里同样使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yushenjian.com/img/scratch_custom/scratch-cover.jpg">
+<meta property="article:published_time" content="2024-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-08-14T16:00:00.000Z">
+<meta property="article:author" content="于沈健">
+<meta property="article:tag" content="前端博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yushenjian.com/img/scratch_custom/scratch-cover.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yushenjian.com/2024/08/15/scratch_custom_3/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2024-08-15 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-book"></i><span> 留言</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/scratch_custom/scratch-bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">于沈健の博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-book"></i><span> 留言</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">通过文生图模型在 Scratch 3 背景区生成图片</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-14T16:00:00.000Z" title="更新于 2024-08-15 00:00:00">2024-08-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%88%9B%E7%95%8C%E7%BC%96%E9%80%94%C2%B7Scratch%E6%96%B0%E7%AB%A0/">创界编途·Scratch新章</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">881</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="通过文生图模型在 Scratch 3 背景区生成图片"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>经过在角色区和造型区成功生成图片的历程之后，最后的任务就是在背景区通过文生图模型生成图片了。这次任务相对来说也是最简单的一步，因为它和之前的逻辑非常相似，只是在 Scratch 3 的背景区操作图片。</p>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>在实现背景区生成图片时，我已经有了之前的角色和造型区开发的经验，因此这次遇到的挑战并不多。主要需要注意的是，背景的处理和造型类似，但需要确保它被设置为舞台的当前背景。</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>这里同样使用了 <code>TextGeneratedPic</code> 方法来处理图片的生成。我们通过文生图模型获取到的图片 URL，然后调用 <code>addBackdropToStage</code> 方法将该图片设置为背景。</p>
+<h3 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="title class_">TextGeneratedPic</span>(args, util) &#123;</span><br><span class="line">    <span class="keyword">const</span> imageUrl = <span class="variable language_">this</span>.<span class="property">imageUrl</span></span><br><span class="line">    <span class="keyword">const</span> stage = <span class="variable language_">this</span>.<span class="property">runtime</span>.<span class="title function_">getTargetForStage</span>()</span><br><span class="line">    <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="title function_">addBackdropToStage</span>(stage, imageUrl, util)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码的作用是获取舞台对象 stage，并将图片 URL 传递给 addBackdropToStage 方法，以完成背景的设置。</p>
+<h2 id="背景的处理与添加"><a href="#背景的处理与添加" class="headerlink" title="背景的处理与添加"></a>背景的处理与添加</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="title function_">addBackdropToStage</span>(<span class="params">stage, imageUrl, util</span>) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(imageUrl)</span><br><span class="line">      <span class="keyword">const</span> blob = <span class="keyword">await</span> response.<span class="title function_">blob</span>()</span><br><span class="line">      <span class="keyword">const</span> imageBitmap = <span class="keyword">await</span> <span class="title function_">createImageBitmap</span>(blob)</span><br><span class="line">      <span class="keyword">const</span> extractedContent = <span class="variable language_">this</span>.<span class="property">imageUrl</span>.<span class="title function_">split</span>(<span class="string">&#x27;.png&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> md5 = extractedContent</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> canvas = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;canvas&#x27;</span>)</span><br><span class="line">      canvas.<span class="property">width</span> = imageBitmap.<span class="property">width</span></span><br><span class="line">      canvas.<span class="property">height</span> = imageBitmap.<span class="property">height</span></span><br><span class="line">      <span class="keyword">const</span> context = canvas.<span class="title function_">getContext</span>(<span class="string">&#x27;2d&#x27;</span>)</span><br><span class="line">      context.<span class="title function_">drawImage</span>(imageBitmap, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> pngDataUrl = canvas.<span class="title function_">toDataURL</span>(<span class="string">&#x27;image/png&#x27;</span>)</span><br><span class="line">      <span class="keyword">const</span> base64Data = pngDataUrl.<span class="title function_">split</span>(<span class="string">&#x27;,&#x27;</span>)[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> binaryString = <span class="title function_">atob</span>(base64Data)</span><br><span class="line">      <span class="keyword">const</span> binaryLen = binaryString.<span class="property">length</span></span><br><span class="line">      <span class="keyword">const</span> bytes = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(binaryLen)</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; binaryLen; i++) &#123;</span><br><span class="line">        <span class="keyword">const</span> ascii = binaryString.<span class="title function_">charCodeAt</span>(i)</span><br><span class="line">        bytes[i] = ascii</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> backdrop = &#123;</span><br><span class="line">        <span class="attr">asset</span>: <span class="literal">null</span>,</span><br><span class="line">        <span class="attr">md5</span>: <span class="string">`<span class="subst">$&#123;md5&#125;</span>.png`</span>,</span><br><span class="line">        <span class="attr">name</span>: <span class="variable language_">this</span>.<span class="property">fileName</span> + <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>(),</span><br><span class="line">        <span class="attr">bitmapResolution</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="attr">rotationCenterX</span>: imageBitmap.<span class="property">width</span> / <span class="number">2</span>,</span><br><span class="line">        <span class="attr">rotationCenterY</span>: imageBitmap.<span class="property">height</span> / <span class="number">2</span>,</span><br><span class="line">        <span class="attr">skinId</span>: <span class="literal">null</span>,</span><br><span class="line">        <span class="attr">dataFormat</span>: <span class="string">&#x27;png&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> storage = stage.<span class="property">runtime</span>.<span class="property">storage</span></span><br><span class="line">      <span class="keyword">const</span> asset = storage.<span class="title function_">createAsset</span>(</span><br><span class="line">        <span class="title class_">AssetType</span>.<span class="property">ImageBitmap</span>,</span><br><span class="line">        <span class="string">&#x27;png&#x27;</span>,</span><br><span class="line">        bytes,</span><br><span class="line">        md5</span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">      backdrop.<span class="property">asset</span> = asset</span><br><span class="line">      backdrop.<span class="property">assetId</span> = asset.<span class="property">assetId</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> skinId = <span class="keyword">await</span> stage.<span class="property">runtime</span>.<span class="property">renderer</span>.<span class="title function_">createBitmapSkin</span>(imageBitmap, backdrop.<span class="property">bitmapResolution</span>)</span><br><span class="line">      backdrop.<span class="property">skinId</span> = skinId</span><br><span class="line"></span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(stage.<span class="property">sprite</span>, <span class="string">&#x27;stage.sprite&#x27;</span>)</span><br><span class="line"></span><br><span class="line">      stage.<span class="property">sprite</span>.<span class="property">costumes</span>.<span class="title function_">push</span>(backdrop)</span><br><span class="line">      stage.<span class="title function_">setCostume</span>(stage.<span class="property">sprite</span>.<span class="property">costumes</span>.<span class="property">length</span> - <span class="number">1</span>)</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">runtime</span>.<span class="title function_">emit</span>(<span class="string">&quot;SAY&quot;</span>, util.<span class="property">target</span>, <span class="string">&quot;say&quot;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;背景已成功添加并设置为当前背景&#x27;</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;添加背景时出错:&#x27;</span>, error)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h2><p>图片的加载与处理：与之前处理角色和造型时类似，我们通过 fetch 从 imageUrl 获取图片，并将其转换为 imageBitmap。通过 canvas 将图片绘制为 Base64，接着将 Base64 数据解析为二进制数据，构建背景的 backdrop 对象。</p>
+<p>背景对象的创建：backdrop 对象包含了图片的 MD5 值、名称、分辨率等信息，并通过 Scratch 的存储机制创建了对应的图片资源 asset。</p>
+<p>背景的设置：最终将背景对象添加到舞台的 costumes 列表中，并设置为当前背景。为了确保背景正确渲染，还调用了 setCostume 方法。</p>
+<h2 id="经验与收获"><a href="#经验与收获" class="headerlink" title="经验与收获"></a>经验与收获</h2><p>与之前在角色区和造型区生成图片相比，在背景区生成图片是整个任务的最后一步，也是最简单的一步。通过前面的开发经历，我对 Scratch 的渲染机制有了更深入的理解。在背景的设置过程中，主要工作依然是处理图片的格式，并确保它能够正确显示在舞台上。</p>
+<p>这次开发也标志着我在通过文生图模型生成图片任务上的全部完成。从角色区、造型区到背景区，我成功实现了在 Scratch 3 中通过文生图生成的图片动态添加的功能。</p>
+<p><img src="/img/scratch_custom/img-5.png" alt="生成中"></p>
+<p><img src="/img/scratch_custom/img-6.png" alt="已完成"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">于沈健</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yushenjian.com/2024/08/15/scratch_custom_3/">http://yushenjian.com/2024/08/15/scratch_custom_3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yushenjian.com" target="_blank">于沈健の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/scratch_custom/scratch-cover.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/08/21/fix_tales_1/"><img class="prev-cover" src="/img/fix_tales/fix-tales-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">解决苹果手机&lt;audio&gt;标签播放错误</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/12/scratch_custom_2/"><img class="next-cover" src="/img/scratch_custom/scratch-cover.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">通过文生图模型在 Scratch 3 造型区生成图片</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">于沈健</div><div class="author-info__description">没有欲望，何来胜利</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/simpson007"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/simpson007" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/993418465@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.</span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E4%BB%A3%E7%A0%81"><span class="toc-number">2.1.</span> <span class="toc-text">关键代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9A%84%E5%A4%84%E7%90%86%E4%B8%8E%E6%B7%BB%E5%8A%A0"><span class="toc-number">3.</span> <span class="toc-text">背景的处理与添加</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">代码解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%8F%E9%AA%8C%E4%B8%8E%E6%94%B6%E8%8E%B7"><span class="toc-number">5.</span> <span class="toc-text">经验与收获</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/21/fix_tales_1/" title="解决苹果手机&lt;audio&gt;标签播放错误"><img src="/img/fix_tales/fix-tales-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决苹果手机&lt;audio&gt;标签播放错误"/></a><div class="content"><a class="title" href="/2024/08/21/fix_tales_1/" title="解决苹果手机&lt;audio&gt;标签播放错误">解决苹果手机&lt;audio&gt;标签播放错误</a><time datetime="2024-08-20T16:00:00.000Z" title="发表于 2024-08-21 00:00:00">2024-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/15/scratch_custom_3/" title="通过文生图模型在 Scratch 3 背景区生成图片"><img src="/img/scratch_custom/scratch-cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过文生图模型在 Scratch 3 背景区生成图片"/></a><div class="content"><a class="title" href="/2024/08/15/scratch_custom_3/" title="通过文生图模型在 Scratch 3 背景区生成图片">通过文生图模型在 Scratch 3 背景区生成图片</a><time datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/12/scratch_custom_2/" title="通过文生图模型在 Scratch 3 造型区生成图片"><img src="/img/scratch_custom/scratch-cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过文生图模型在 Scratch 3 造型区生成图片"/></a><div class="content"><a class="title" href="/2024/08/12/scratch_custom_2/" title="通过文生图模型在 Scratch 3 造型区生成图片">通过文生图模型在 Scratch 3 造型区生成图片</a><time datetime="2024-08-11T16:00:00.000Z" title="发表于 2024-08-12 00:00:00">2024-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/11/scratch_custom_1/" title="通过文生图模型在 Scratch 3 角色区生成图片"><img src="/img/scratch_custom/scratch-cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过文生图模型在 Scratch 3 角色区生成图片"/></a><div class="content"><a class="title" href="/2024/08/11/scratch_custom_1/" title="通过文生图模型在 Scratch 3 角色区生成图片">通过文生图模型在 Scratch 3 角色区生成图片</a><time datetime="2024-08-10T16:00:00.000Z" title="发表于 2024-08-11 00:00:00">2024-08-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/06/18/tutorials_1/" title="将Hexo部署到腾讯云服务器"><img src="/img/tutorials/tutorials-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="将Hexo部署到腾讯云服务器"/></a><div class="content"><a class="title" href="/2022/06/18/tutorials_1/" title="将Hexo部署到腾讯云服务器">将Hexo部署到腾讯云服务器</a><time datetime="2022-06-17T16:00:00.000Z" title="发表于 2022-06-18 00:00:00">2022-06-18</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/scratch_custom/scratch-bg.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 于沈健</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="framework-info"><img class="icp-icon" src="https://cdn.jsdelivr.net/gh/Bhaoo/Cuckoo@2.0.1/assets/images/beian.png"/><span> </span><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">苏ICP备2022027393号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

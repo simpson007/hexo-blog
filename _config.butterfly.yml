@@ -1,0 +1,200 @@
+# 导航菜单
+menu:
+  首页: / || fas fa-home
+  文章||fa fa-book:
+    归档: /archives/ || fas fa-archive
+    标签: /tags/ || fas fa-tags
+    分类: /categories/ || fas fa-folder-open
+  清单||fa fa-heartbeat:
+    音乐: /music/ || fas fa-music
+    相册: /gallery/ || fas fa-images
+    电影: /movies/ || fas fa-video
+  友链: /link/ || fas fa-link
+  关于: /about/ || fas fa-heart
+  留言: /comments/ || fas fa-book
+
+# 404页面
+error_404:
+  enable: true
+  subtitle: "页面沒有找到"
+  background: /img/404.jpg
+
+# 头像
+avatar:
+  img: /img/avatar.jpg
+  effect: true # 头像会一直转圈  
+
+# 代码高亮主题
+highlight_theme: mac light
+# 代码复制
+highlight_copy: true
+# 代码框展开/关闭
+highlight_shrink: true
+# 代码换行
+code_word_wrap: true
+# 代码高度限制
+highlight_height_limit: false
+
+# 社交图标
+social:
+  fab fa-github: https://github.com/simpson007 || Github
+  fas fa-envelope: 993418465@qq.com || Email
+
+# 顶部图
+index_img: /img/bg.jpg
+archive_img: /img/bg-1.jpg
+
+# 夜间模式
+darkmode:
+  enable: false
+  # dark 和 light 两种模式切换按钮
+  button: true
+  autoChangeMode: false
+
+# 阅读模式
+readmode: true  
+
+# 侧边排版
+aside:
+  enable: true
+  hide: false
+  button: true
+  mobile: true # 手机页面（ 显示宽度 < 768px ）是否显示aside内容
+  position: right # left or right 
+  card_author: # 关于博主的一些信息
+    enable: true
+    description:
+    button:
+      enable: true
+      icon: fab fa-github
+      text: Follow Me
+      link: https://github.com/simpson007
+  card_announcement:  # 公告信息
+    enable: true
+    content: This is my Blog
+  card_recent_post: # 最新文章
+    enable: true
+    limit: 5 # if set 0 will show all
+    sort: date # date or updated
+    sort_order: # Don't modify the setting unless you know how it works
+  card_categories: # 文章分类
+    enable: true
+    limit: 8 # if set 0 will show all
+    expand: none # none/true/false
+    sort_order: # Don't modify the setting unless you know how it works
+  card_tags: # 文章标签
+    enable: true
+    limit: 40 # if set 0 will show all
+    color: false
+    sort_order: # Don't modify the setting unless you know how it works
+  card_archives: # 文章归档
+    enable: true
+    type: monthly # yearly or monthly
+    format: MMMM YYYY # eg: YYYY年MM月
+    order: -1 # Sort of order. 1, asc for ascending; -1, desc for descending
+    limit: 8 # if set 0 will show all
+    sort_order: # Don't modify the setting unless you know how it works
+  card_webinfo:  # 网站信息
+    enable: true
+    post_count: true
+    last_push_date: true
+    sort_order: # Don't modify the setting unless you know how it works
+
+# 访问人数(UV 和 PV)
+busuanzi:
+  site_uv: true  # 本站总访客数
+  site_pv: true  # 本站总访问量 
+  page_pv: true  # 本文总阅读量    
+
+# 运行时间
+runtimeshow:
+  enable: true
+  publish_date: 6/18/2022 00:00:00   
+
+# 最新评论
+newest_comments:
+  enable: true
+  sort_order: # Don't modify the setting unless you know how it works
+  limit: 6  # 显示的数量
+  storage: 10 # 设置缓存时间，单位 分钟 
+  avatar: true # 是否显示头像  
+
+# 网站背景
+# 图片格式 url(http://xxxxxx.com/xxx.jpg)
+# 颜色（HEX值/RGB值/颜色单词/渐变色)
+# 留空 不显示背景
+background: /blog-yusj/source/img/dbg-1.jpg
+
+# 打字效果
+# Typewriter Effect (打字效果)
+# https://github.com/disjukr/activate-power-mode
+activate_power_mode:
+  enable: false
+  colorful: true # open particle animation (冒光特效)
+  shake: true #  open shake (抖動特效)
+  mobile: false
+
+# footer是否显示图片背景(与top_img一致)
+footer_bg: true  
+
+# 鼠标点击效果
+# 点击出現爱心
+click_heart:
+  enable: true
+  mobile: false
+
+# 全局字体
+# Global font settings
+# Don't modify the following settings unless you know how they work (非必要不要修改)
+font:
+  global-font-size:
+  code-font-size:
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Lato, Roboto, "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", sans-serif
+  code-font-family: consolas, Menlo, "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", sans-serif  
+
+# Blog 标题字体  
+# Font settings for the site title and site subtitle
+# 左上角网站名字 主页居中网站名字
+blog_title_font:
+  font_link: https://fonts.googleapis.com/css?family=Titillium+Web&display=swap
+  font-family: Titillium Web, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft JhengHei', 'Microsoft YaHei', sans-serif
+
+# 网站副标题  
+subtitle:
+  enable: false
+  # Typewriter Effect (打字效果)
+  effect: true
+  # loop (循環打字)
+  loop: true
+  sub:
+    - 天行健，君子以自强不息
+
+# 页面加载动画preloader
+preloader: true
+
+# 字数统计
+wordcount:
+  enable: true
+  post_wordcount: true
+  min2read: true
+  total_wordcount: true
+
+# 图片大图查看模式
+fancybox: true
+
+# Pjax
+pjax: 
+  enable: true
+  # 对于一些第三方插件，有些并不支持 pjax 。
+  # 你可以把网页加入到 exclude 里，这个网页会被 pjax 排除在外。
+  # 点击该网页会重新加载网站。
+  exclude: 
+    - /music/
+    - /no-pjax/
+
+# Inject
+inject:
+  head:
+    # - <link rel="stylesheet" href="/xxx.css">
+  bottom:
+    # - <script src="xxxx"></script>    
