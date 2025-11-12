@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+
+# Node
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Hexo
+db.json
+*.log
+.deploy*/
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+
+# Deployment
+deploy.sh
+server-init.sh
+setup-ssl.sh
+DEPLOYMENT.md
+README.md
+
+# SSL certificates (will be mounted as volume)
+ssl/
+
+# Logs (will be mounted as volume)
+logs/

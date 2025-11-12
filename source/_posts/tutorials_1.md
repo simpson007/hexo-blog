@@ -1,179 +1,119 @@
 ---
-title: 将Hexo部署到腾讯云服务器
-date: 2022-06-18
-updated: 2022-06-18
+title: 终端下文件与目录操作指南
+date: 2021-06-04
+updated: 2022-08-01
 categories: 学海拾贝集
 keywords: 学海拾贝集
 top_img: /img/tutorials/tutorials-bg.png
 cover: /img/tutorials/tutorials-cover.png
 ---
 
-### 背景
-一直以来，我都把博客托管在GitHub Pages上，虽然简单方便，但国内访问速度不理想，尤其是图片经常加载不出来，体验非常糟糕。于是，我决定把博客部署到自己的服务器上，不仅能大幅提升访问速度，还能根据自己的喜好调整页面风格。经过对比，我最终选择了Hexo这个静态博客框架，再加上腾讯云的轻量应用服务器，性价比和稳定性都不错。
+本文总结了在终端下对文件和目录进行 **增、删、改、查** 的常用操作，并附带命令使用技巧与脚本创建方法。  
+> ⚠️ 环境提示：  
+> 本文命令在 **Linux / macOS / WSL 或 Git-Bash** 下验证通过；Windows **原生 CMD/PowerShell** 请留意文中特殊提示。
 
-## 一、环境准备
+---
 
-### 1.1 相关信息
-- **电脑信息**: Apple M1 Pro
-- **服务器信息**: 腾讯云轻量应用服务器
-- **操作系统**: CentOS 7.6 64bit
+## 1. 查（查看文件与目录）
 
-## 二、服务端操作
+| 功能 | 命令 | 平台差异 |
+|---|---|---|
+| 查看当前目录绝对路径 | `pwd` | 全平台内置 |
+| 查看目录内容 | `ls` / `ls path` | 全平台可用（Windows 需 Git-Bash 或 PowerShell 别名） |
+| 查看文件内容 | `cat path` | 同上 |
+| 查看文件前 n 行 | `head -n 10 path` | 同上 |
+| 查看文件后 n 行 | `tail -n 10 path` | 同上 |
+| 可滚动查看 | `less path` | Windows 原生无 `less`，需 Git-Bash |
+| 详细列表 | `ls -l path` | 输出格式略有差异，功能一致 |
+| 查看时间戳 | `stat path` | **Linux/macOS 专用**；Windows 原生字段不同，建议 Git-Bash 下使用或 `Get-ItemProperty` |
 
-### 2.1 安装Git和Nginx
+---
 
-```bash
-sudo apt update
-sudo apt install git nginx -y
-```
+## 2. 增（创建、复制）
 
-### 2.2 创建Git用户
+| 功能 | 命令 | 平台差异 |
+|---|---|---|
+| 创建空文件 | `touch file` | Windows 原生无 `touch`，可用 `type nul >file`（CMD）或 `ni file`（PowerShell） |
+| 覆盖写入 | `echo hello > file` | Windows 可能带 BOM/CRLF，推荐 `printf "hello\n" > file` |
+| 追加写入 | `echo world >> file` | 同上 |
+| 创建多级目录 | `mkdir -p a/b/c` | 全平台 ≥Win10 |
+| 复制文件 | `cp 1.txt 2.txt` | 全平台 |
+| 复制目录 | `cp -r dir1 dir2` | 不会复制符号链接目标/NTFS 流；Linux 用 `cp -a`，macOS 用 `cp -R`，Windows 用 `robocopy /e /copyall` |
 
-```bash
-# 创建git用户
-sudo adduser git
-# 为git用户设置密码
-sudo passwd git
+---
 
-# 配置git用户的sudo权限
-sudo chmod 740 /etc/sudoers
-sudo vim /etc/sudoers
-# 添加如下行到root ALL=(ALL) ALL 之后
-git ALL=(ALL) ALL
+## 3. 删（删除文件和目录）
 
-# 修改sudoers文件权限
-sudo chmod 400 /etc/sudoers
-```
+| 功能 | 命令 | 平台差异 |
+|---|---|---|
+| 删除文件 | `rm file` | Windows 原生用 `del file` |
+| 删除目录 | `rm -rf dir` | Windows 原生用 `rmdir /s /q dir` |
+| 危险警告 | ⚠️ `rm -rf` 不可逆，确认路径再回车！ | 全平台通用 |
 
-### 2.3 添加SSH密钥
+---
 
-```bash
-# 切换到git用户
-su git
-# 创建.ssh目录和密钥文件
-mkdir -p ~/.ssh
-touch ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
-chmod 700 ~/.ssh
+## 4. 改（编辑、重命名、移动）
 
-# 将本地生成的公钥粘贴到authorized_keys文件中
-vim ~/.ssh/authorized_keys
-```
+| 功能 | 命令 | 平台差异 |
+|---|---|---|
+| 命令行编辑 | `nano file` | Linux/macOS 自带；Windows 需额外安装 |
+| 图形编辑 | `code file` | 需把 VS Code 的「Shell Command」安装到 PATH |
+| Windows 默认程序 | `start file` | Windows 独有；Linux 用 `xdg-open`，macOS 用 `open` |
+| 清空文件 | `> file` | 全平台支持 |
+| 重命名/移动 | `mv old new` / `mv file dir/` | 全平台一致 |
+| 更新时间戳 | `touch file` | 同「创建空文件」行 |
 
-### 2.4 创建Git仓库并实现自动部署
+---
 
-```bash
-# 创建git仓库目录
-sudo mkdir -p /var/repo
-# 创建Hexo网站的根目录
-sudo mkdir -p /var/www/hexo
+## 5. 查看命令帮助与返回值
 
-# 切换到/var/repo目录并初始化git仓库
-cd /var/repo/
-sudo git init --bare blog.git
+| 功能 | 命令 | 平台差异 |
+|---|---|---|
+| 内置帮助 | `ls --help \| less` | Windows 原生无 `less`，可用 `more` 或 Git-Bash |
+| 简化教程 | `tldr ls` | 安装方式：<br>Linux/macOS: `sudo npm i -g tldr` / `brew install tldr`<br>Windows: `scoop install tldr` 或 `npm i -g tldr` |
+| 上个命令返回值 | `echo $?` | **CMD 用 `echo %errorlevel%`**<br>**PowerShell 用 `echo $LASTEXITCODE`** |
 
-# 配置post-update钩子，自动部署代码
-sudo vim /var/repo/blog.git/hooks/post-update
-```
+---
 
-post-update文件内容：
+## 6. 命令合并
 
-```bash
-#!/bin/bash
-git --work-tree=/var/www/hexo --git-dir=/var/repo/blog.git checkout -f
-```
+| 功能 | 命令 | 平台差异 |
+|---|---|---|
+| 成功才继续 | `cmd1 && cmd2` | CMD/PowerShell 均支持 |
+| 无论成败继续 | `cmd1; cmd2` | **CMD 不支持分号**，PowerShell 支持 |
 
-```bash
-# 赋予执行权限
-sudo chmod +x /var/repo/blog.git/hooks/post-update
+---
 
-# 授权git用户对仓库和网站目录的访问权限
-sudo chown -R git:git /var/repo /var/www/hexo
-```
+## 7. 创建脚本
 
-### 2.5 配置Nginx
+### 7.1 脚本示例（跨平台 Bash）
 
 ```bash
-# 切换到Nginx的配置文件目录
-cd /etc/nginx/conf.d/
-sudo vim blog.conf
+#!/usr/bin/env bash
+# 创建项目目录并写入基础文件
+if [ -z "$1" ]; then
+  echo "请提供目录名参数"
+  exit 1
+fi
+mkdir -p "$1" && cd "$1" || exit
+touch index.html style.css main.js
+printf "<!DOCTYPE html>\n<h1>title</h1>\n" > index.html
 ```
 
-blog.conf文件内容：
+### 7.2 运行方式
 
-```bash
-server {
-    listen 80;
-    server_name yourdomain.com;
-    root /var/www/hexo;
-    index index.html;
-}
-```
+| 系统 | 步骤 |
+|---|---|
+| Linux/macOS/WSL | `chmod +x script.sh && ./script.sh myproject` |
+| Windows Git-Bash | 同上 |
+| Windows 原生 | **无需 chmod**；直接 `bash script.sh myproject` |
 
-```bash
-# 检查Nginx配置并启动服务
-sudo nginx -t
-sudo systemctl start nginx
-sudo systemctl status nginx
-```
+### 7.3 把脚本目录加入 PATH
 
-### 2.6 修改Git用户Shell环境
+| 系统 | 操作 |
+|---|---|
+| Linux/macOS/WSL | `echo 'export PATH=$PATH:/path/to/script' >> ~/.bashrc` |
+| Windows CMD | `setx PATH "%PATH%;C:\path\to\script"` |
+| Windows PowerShell | `$env:PATH += ';C:\path\to\script'`（或图形界面「系统属性→环境变量」） |
 
-```bash
-# 修改git用户的默认shell为git-shell，限制登录权限
-sudo vim /etc/passwd
-# 将最后一行的/bin/bash改为/usr/bin/git-shell
-```
-
-## 三、本地配置（Mac）
-### 3.1 安装Git
-
-使用Xcode命令行工具安装git
-
-```bash
-xcode-select --install
-git --version
-```
-
-### 3.2 安装Node.js和npm
-
-使用Homebrew安装：
-
-```bash
-brew install node
-```
-### 3.3 安装Hexo及相关插件
-
-```bash
-sudo npm install hexo-cli hexo-server hexo-deployer-git -g
-```
-
-### 3.4 本地初始化博客站点
-```bash
-hexo init ~/blog
-cd ~/blog
-npm install
-```
-
-### 3.5 配置Hexo的部署信息
-
-修改_config.yml文件：
-
-```bash
-deploy:
-  type: git
-  repo: git@yourserver:/var/repo/blog.git
-  branch: master
-```
-
-### 3.6 部署Hexo到服务器
-
-```bash
-hexo clean
-hexo generate
-hexo deploy
-```
-
-## 四、测试
-
-在浏览器中输入服务器的IP地址或域名，测试博客是否正常访问。
+---
