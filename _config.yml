@@ -4,15 +4,7 @@
 
 # Site
 title: 于沈健の博客
-subtitle:
-  enable: true
-      # Typewriter Effect (打字效果)
-  effect: true
-      # loop (循环打字)
-  loop: true
-      # 如果关闭打字效果，subtitle 只会显示 sub 的第一行文字
-  sub:
-      - 天行健，君子以自强不息
+subtitle: ''
 description: 没有欲望，何来胜利
 keywords: 前端博客
 author: 于沈健

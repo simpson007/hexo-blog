@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>终端下文件与目录操作指南 | 于沈健の博客</title><meta name="keywords" content="学海拾贝集"><meta name="author" content="于沈健"><meta name="copyright" content="于沈健"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文总结了在终端下对文件和目录进行 增、删、改、查 的常用操作，并附带命令使用技巧与脚本创建方法。    ⚠️ 环境提示：本文命令在 Linux &#x2F; macOS &#x2F; WSL 或 Git-Bash 下验证通过；Windows 原生 CMD&#x2F;PowerShell 请留意文中特殊提示。   1. 查（查看文件与目录）   功能 命令 平台差异    查看当前目录绝对路径 pwd 全平台内置   查看目录">
+<meta property="og:type" content="article">
+<meta property="og:title" content="终端下文件与目录操作指南">
+<meta property="og:url" content="http://yushenjian.com/2021/06/04/tutorials_1/index.html">
+<meta property="og:site_name" content="于沈健の博客">
+<meta property="og:description" content="本文总结了在终端下对文件和目录进行 增、删、改、查 的常用操作，并附带命令使用技巧与脚本创建方法。    ⚠️ 环境提示：本文命令在 Linux &#x2F; macOS &#x2F; WSL 或 Git-Bash 下验证通过；Windows 原生 CMD&#x2F;PowerShell 请留意文中特殊提示。   1. 查（查看文件与目录）   功能 命令 平台差异    查看当前目录绝对路径 pwd 全平台内置   查看目录">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yushenjian.com/img/tutorials/tutorials-cover.png">
+<meta property="article:published_time" content="2021-06-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-07-31T16:00:00.000Z">
+<meta property="article:author" content="于沈健">
+<meta property="article:tag" content="前端博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yushenjian.com/img/tutorials/tutorials-cover.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yushenjian.com/2021/06/04/tutorials_1/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2022-08-01 00:00:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-book"></i><span> 留言</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/tutorials/tutorials-bg.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">于沈健の博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-book"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 清单</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-book"></i><span> 留言</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">终端下文件与目录操作指南</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-06-03T16:00:00.000Z" title="发表于 2021-06-04 00:00:00">2021-06-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-31T16:00:00.000Z" title="更新于 2022-08-01 00:00:00">2022-08-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AD%A6%E6%B5%B7%E6%8B%BE%E8%B4%9D%E9%9B%86/">学海拾贝集</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">848</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="终端下文件与目录操作指南"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>本文总结了在终端下对文件和目录进行 <strong>增、删、改、查</strong> 的常用操作，并附带命令使用技巧与脚本创建方法。  </p>
+<blockquote>
+<p>⚠️ 环境提示：<br>本文命令在 <strong>Linux / macOS / WSL 或 Git-Bash</strong> 下验证通过；Windows <strong>原生 CMD/PowerShell</strong> 请留意文中特殊提示。</p>
+</blockquote>
+<hr>
+<h2 id="1-查（查看文件与目录）"><a href="#1-查（查看文件与目录）" class="headerlink" title="1. 查（查看文件与目录）"></a>1. 查（查看文件与目录）</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+<th>平台差异</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看当前目录绝对路径</td>
+<td><code>pwd</code></td>
+<td>全平台内置</td>
+</tr>
+<tr>
+<td>查看目录内容</td>
+<td><code>ls</code> / <code>ls path</code></td>
+<td>全平台可用（Windows 需 Git-Bash 或 PowerShell 别名）</td>
+</tr>
+<tr>
+<td>查看文件内容</td>
+<td><code>cat path</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td>查看文件前 n 行</td>
+<td><code>head -n 10 path</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td>查看文件后 n 行</td>
+<td><code>tail -n 10 path</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td>可滚动查看</td>
+<td><code>less path</code></td>
+<td>Windows 原生无 <code>less</code>，需 Git-Bash</td>
+</tr>
+<tr>
+<td>详细列表</td>
+<td><code>ls -l path</code></td>
+<td>输出格式略有差异，功能一致</td>
+</tr>
+<tr>
+<td>查看时间戳</td>
+<td><code>stat path</code></td>
+<td><strong>Linux/macOS 专用</strong>；Windows 原生字段不同，建议 Git-Bash 下使用或 <code>Get-ItemProperty</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2-增（创建、复制）"><a href="#2-增（创建、复制）" class="headerlink" title="2. 增（创建、复制）"></a>2. 增（创建、复制）</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+<th>平台差异</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建空文件</td>
+<td><code>touch file</code></td>
+<td>Windows 原生无 <code>touch</code>，可用 <code>type nul &gt;file</code>（CMD）或 <code>ni file</code>（PowerShell）</td>
+</tr>
+<tr>
+<td>覆盖写入</td>
+<td><code>echo hello &gt; file</code></td>
+<td>Windows 可能带 BOM/CRLF，推荐 <code>printf &quot;hello\n&quot; &gt; file</code></td>
+</tr>
+<tr>
+<td>追加写入</td>
+<td><code>echo world &gt;&gt; file</code></td>
+<td>同上</td>
+</tr>
+<tr>
+<td>创建多级目录</td>
+<td><code>mkdir -p a/b/c</code></td>
+<td>全平台 ≥Win10</td>
+</tr>
+<tr>
+<td>复制文件</td>
+<td><code>cp 1.txt 2.txt</code></td>
+<td>全平台</td>
+</tr>
+<tr>
+<td>复制目录</td>
+<td><code>cp -r dir1 dir2</code></td>
+<td>不会复制符号链接目标/NTFS 流；Linux 用 <code>cp -a</code>，macOS 用 <code>cp -R</code>，Windows 用 <code>robocopy /e /copyall</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="3-删（删除文件和目录）"><a href="#3-删（删除文件和目录）" class="headerlink" title="3. 删（删除文件和目录）"></a>3. 删（删除文件和目录）</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+<th>平台差异</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>删除文件</td>
+<td><code>rm file</code></td>
+<td>Windows 原生用 <code>del file</code></td>
+</tr>
+<tr>
+<td>删除目录</td>
+<td><code>rm -rf dir</code></td>
+<td>Windows 原生用 <code>rmdir /s /q dir</code></td>
+</tr>
+<tr>
+<td>危险警告</td>
+<td>⚠️ <code>rm -rf</code> 不可逆，确认路径再回车！</td>
+<td>全平台通用</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-改（编辑、重命名、移动）"><a href="#4-改（编辑、重命名、移动）" class="headerlink" title="4. 改（编辑、重命名、移动）"></a>4. 改（编辑、重命名、移动）</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+<th>平台差异</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>命令行编辑</td>
+<td><code>nano file</code></td>
+<td>Linux/macOS 自带；Windows 需额外安装</td>
+</tr>
+<tr>
+<td>图形编辑</td>
+<td><code>code file</code></td>
+<td>需把 VS Code 的「Shell Command」安装到 PATH</td>
+</tr>
+<tr>
+<td>Windows 默认程序</td>
+<td><code>start file</code></td>
+<td>Windows 独有；Linux 用 <code>xdg-open</code>，macOS 用 <code>open</code></td>
+</tr>
+<tr>
+<td>清空文件</td>
+<td><code>&gt; file</code></td>
+<td>全平台支持</td>
+</tr>
+<tr>
+<td>重命名/移动</td>
+<td><code>mv old new</code> / <code>mv file dir/</code></td>
+<td>全平台一致</td>
+</tr>
+<tr>
+<td>更新时间戳</td>
+<td><code>touch file</code></td>
+<td>同「创建空文件」行</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="5-查看命令帮助与返回值"><a href="#5-查看命令帮助与返回值" class="headerlink" title="5. 查看命令帮助与返回值"></a>5. 查看命令帮助与返回值</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+<th>平台差异</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内置帮助</td>
+<td><code>ls --help | less</code></td>
+<td>Windows 原生无 <code>less</code>，可用 <code>more</code> 或 Git-Bash</td>
+</tr>
+<tr>
+<td>简化教程</td>
+<td><code>tldr ls</code></td>
+<td>安装方式：<br>Linux/macOS: <code>sudo npm i -g tldr</code> / <code>brew install tldr</code><br>Windows: <code>scoop install tldr</code> 或 <code>npm i -g tldr</code></td>
+</tr>
+<tr>
+<td>上个命令返回值</td>
+<td><code>echo $?</code></td>
+<td><strong>CMD 用 <code>echo %errorlevel%</code></strong><br><strong>PowerShell 用 <code>echo $LASTEXITCODE</code></strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="6-命令合并"><a href="#6-命令合并" class="headerlink" title="6. 命令合并"></a>6. 命令合并</h2><table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+<th>平台差异</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>成功才继续</td>
+<td><code>cmd1 &amp;&amp; cmd2</code></td>
+<td>CMD/PowerShell 均支持</td>
+</tr>
+<tr>
+<td>无论成败继续</td>
+<td><code>cmd1; cmd2</code></td>
+<td><strong>CMD 不支持分号</strong>，PowerShell 支持</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="7-创建脚本"><a href="#7-创建脚本" class="headerlink" title="7. 创建脚本"></a>7. 创建脚本</h2><h3 id="7-1-脚本示例（跨平台-Bash）"><a href="#7-1-脚本示例（跨平台-Bash）" class="headerlink" title="7.1 脚本示例（跨平台 Bash）"></a>7.1 脚本示例（跨平台 Bash）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="comment"># 创建项目目录并写入基础文件</span></span><br><span class="line"><span class="keyword">if</span> [ -z <span class="string">&quot;<span class="variable">$1</span>&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;请提供目录名参数&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$1</span>&quot;</span> &amp;&amp; <span class="built_in">cd</span> <span class="string">&quot;<span class="variable">$1</span>&quot;</span> || <span class="built_in">exit</span></span><br><span class="line"><span class="built_in">touch</span> index.html style.css main.js</span><br><span class="line"><span class="built_in">printf</span> <span class="string">&quot;&lt;!DOCTYPE html&gt;\n&lt;h1&gt;title&lt;/h1&gt;\n&quot;</span> &gt; index.html</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-2-运行方式"><a href="#7-2-运行方式" class="headerlink" title="7.2 运行方式"></a>7.2 运行方式</h3><table>
+<thead>
+<tr>
+<th>系统</th>
+<th>步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Linux/macOS/WSL</td>
+<td><code>chmod +x script.sh &amp;&amp; ./script.sh myproject</code></td>
+</tr>
+<tr>
+<td>Windows Git-Bash</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>Windows 原生</td>
+<td><strong>无需 chmod</strong>；直接 <code>bash script.sh myproject</code></td>
+</tr>
+</tbody></table>
+<h3 id="7-3-把脚本目录加入-PATH"><a href="#7-3-把脚本目录加入-PATH" class="headerlink" title="7.3 把脚本目录加入 PATH"></a>7.3 把脚本目录加入 PATH</h3><table>
+<thead>
+<tr>
+<th>系统</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Linux/macOS/WSL</td>
+<td><code>echo &#39;export PATH=$PATH:/path/to/script&#39; &gt;&gt; ~/.bashrc</code></td>
+</tr>
+<tr>
+<td>Windows CMD</td>
+<td><code>setx PATH &quot;%PATH%;C:\path\to\script&quot;</code></td>
+</tr>
+<tr>
+<td>Windows PowerShell</td>
+<td><code>$env:PATH += &#39;;C:\path\to\script&#39;</code>（或图形界面「系统属性→环境变量」）</td>
+</tr>
+</tbody></table>
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">于沈健</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yushenjian.com/2021/06/04/tutorials_1/">http://yushenjian.com/2021/06/04/tutorials_1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yushenjian.com" target="_blank">于沈健の博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/tutorials/tutorials-cover.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2022/06/18/tutorials_101/"><img class="prev-cover" src="/img/tutorials/tutorials-cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">将Hexo部署到腾讯云服务器</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">于沈健</div><div class="author-info__description">没有欲望，何来胜利</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/simpson007"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/simpson007" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="/993418465@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9F%A5%EF%BC%88%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">1. 查（查看文件与目录）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A2%9E%EF%BC%88%E5%88%9B%E5%BB%BA%E3%80%81%E5%A4%8D%E5%88%B6%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. 增（创建、复制）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%88%A0%EF%BC%88%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. 删（删除文件和目录）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%94%B9%EF%BC%88%E7%BC%96%E8%BE%91%E3%80%81%E9%87%8D%E5%91%BD%E5%90%8D%E3%80%81%E7%A7%BB%E5%8A%A8%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">4. 改（编辑、重命名、移动）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9F%A5%E7%9C%8B%E5%91%BD%E4%BB%A4%E5%B8%AE%E5%8A%A9%E4%B8%8E%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-number">5.</span> <span class="toc-text">5. 查看命令帮助与返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%91%BD%E4%BB%A4%E5%90%88%E5%B9%B6"><span class="toc-number">6.</span> <span class="toc-text">6. 命令合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%88%9B%E5%BB%BA%E8%84%9A%E6%9C%AC"><span class="toc-number">7.</span> <span class="toc-text">7. 创建脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E8%84%9A%E6%9C%AC%E7%A4%BA%E4%BE%8B%EF%BC%88%E8%B7%A8%E5%B9%B3%E5%8F%B0-Bash%EF%BC%89"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 脚本示例（跨平台 Bash）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E8%BF%90%E8%A1%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">7.2.</span> <span class="toc-text">7.2 运行方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E6%8A%8A%E8%84%9A%E6%9C%AC%E7%9B%AE%E5%BD%95%E5%8A%A0%E5%85%A5-PATH"><span class="toc-number">7.3.</span> <span class="toc-text">7.3 把脚本目录加入 PATH</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/21/fix_tales_1/" title="解决苹果手机&lt;audio&gt;标签播放错误"><img src="/img/fix_tales/fix-tales-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="解决苹果手机&lt;audio&gt;标签播放错误"/></a><div class="content"><a class="title" href="/2024/08/21/fix_tales_1/" title="解决苹果手机&lt;audio&gt;标签播放错误">解决苹果手机&lt;audio&gt;标签播放错误</a><time datetime="2024-08-20T16:00:00.000Z" title="发表于 2024-08-21 00:00:00">2024-08-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/15/scratch_custom_3/" title="通过文生图模型在 Scratch 3 背景区生成图片"><img src="/img/scratch_custom/scratch-cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过文生图模型在 Scratch 3 背景区生成图片"/></a><div class="content"><a class="title" href="/2024/08/15/scratch_custom_3/" title="通过文生图模型在 Scratch 3 背景区生成图片">通过文生图模型在 Scratch 3 背景区生成图片</a><time datetime="2024-08-14T16:00:00.000Z" title="发表于 2024-08-15 00:00:00">2024-08-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/12/scratch_custom_2/" title="通过文生图模型在 Scratch 3 造型区生成图片"><img src="/img/scratch_custom/scratch-cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过文生图模型在 Scratch 3 造型区生成图片"/></a><div class="content"><a class="title" href="/2024/08/12/scratch_custom_2/" title="通过文生图模型在 Scratch 3 造型区生成图片">通过文生图模型在 Scratch 3 造型区生成图片</a><time datetime="2024-08-11T16:00:00.000Z" title="发表于 2024-08-12 00:00:00">2024-08-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/11/scratch_custom_1/" title="通过文生图模型在 Scratch 3 角色区生成图片"><img src="/img/scratch_custom/scratch-cover.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="通过文生图模型在 Scratch 3 角色区生成图片"/></a><div class="content"><a class="title" href="/2024/08/11/scratch_custom_1/" title="通过文生图模型在 Scratch 3 角色区生成图片">通过文生图模型在 Scratch 3 角色区生成图片</a><time datetime="2024-08-10T16:00:00.000Z" title="发表于 2024-08-11 00:00:00">2024-08-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/09/01/tutorials_100/" title="17 个常用的 JavaScript 简写技巧"><img src="/img/tutorials/tutorials-cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="17 个常用的 JavaScript 简写技巧"/></a><div class="content"><a class="title" href="/2022/09/01/tutorials_100/" title="17 个常用的 JavaScript 简写技巧">17 个常用的 JavaScript 简写技巧</a><time datetime="2022-08-31T16:00:00.000Z" title="发表于 2022-09-01 00:00:00">2022-09-01</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('/img/tutorials/tutorials-bg.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By 于沈健</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="framework-info"><img class="icp-icon" src="https://cdn.jsdelivr.net/gh/Bhaoo/Cuckoo@2.0.1/assets/images/beian.png"/><span> </span><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">苏ICP备2022027393号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = [
+  'title',
+  '#config-diff',
+  '#body-wrap',
+  '#rightside-config-hide',
+  '#rightside-config-show',
+  '.js-pjax'
+]
+
+if (false) {
+  pjaxSelectors.unshift('meta[property="og:image"]', 'meta[property="og:title"]', 'meta[property="og:url"]')
+}
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // Analytics
+  if (false) {
+    MtaH5.pgv()
+  }
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+
+  typeof preloader === 'object' && preloader.endLoading()
+})
+
+
+document.addEventListener('pjax:send', function () {
+  typeof preloader === 'object' && preloader.initLoading()
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
